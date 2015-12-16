@@ -20,7 +20,7 @@ class Admb < Formula
     #                      "--prefix=#{prefix}"
     # system "cmake", ".", *std_cmake_args
     system "make", "clang++-all" # if this fails, try separate make/make install steps
-    system "cp", "build/dist", "#{prefix}"
+    system "cp", "build/dist/*", "#{prefix}"
   end
 
   test do
