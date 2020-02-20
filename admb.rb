@@ -5,6 +5,8 @@
 class Admb < Formula
   desc "AD Model builder"
   homepage "http://admb-project.org"
+  url "https://github.com/admb-project/admb/releases/download/admb-12.1/admb-12.1-src.zip"
+  sha256 "a5541153ea55707c2a873eddc470906630aeded6d1f79c2a0a1617e8414928d0"
   head "https://github.com/admb-project/admb.git"
 
   # depends_on "cmake" => :build
@@ -19,8 +21,11 @@ class Admb < Formula
     #                      "--disable-silent-rules",
     #                      "--prefix=#{prefix}"
     # system "cmake", ".", *std_cmake_args
-    system "make", "clang++-all" # if this fails, try separate make/make install steps
-    system "cp -r build/dist/* #{prefix}"
+    system "make", "c++-all" # if this fails, try separate make/make install steps
+    #system "make", "clang++-all" # if this fails, try separate make/make install steps
+    # system "cp -r build/dist/* #{prefix}"
+    system "make", "c++-install"
+    #system "make", "clang++-install"
   end
 
   test do
@@ -33,6 +38,7 @@ class Admb < Formula
     #
     # The installed folder is not in the path, so use the entire path to any
     # executables being tested: `system "#{bin}/program", "do", "something"`.
-    system "false"
+    #system "false"
+    system "make", "clang++-test"
   end
 end
