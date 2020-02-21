@@ -7,7 +7,9 @@ class Admb < Formula
   homepage "http://admb-project.org"
   url "https://github.com/admb-project/admb/releases/download/admb-12.1/admb-12.1-src.zip"
   sha256 "a5541153ea55707c2a873eddc470906630aeded6d1f79c2a0a1617e8414928d0"
-  head "https://github.com/admb-project/admb.git"
+  # head "https://github.com/admb-project/admb.git"
+  # For testing use foled repo
+  head "https://github.com/yukio-takeuchi/admb.git"
 
   # depends_on "cmake" => :build
   # depends_on :x11 # if your formula requires any X11/XQuartz components
@@ -21,11 +23,39 @@ class Admb < Formula
     #                      "--disable-silent-rules",
     #                      "--prefix=#{prefix}"
     # system "cmake", ".", *std_cmake_args
-    system "make", "c++-all" # if this fails, try separate make/make install steps
+    #system "make", "c++-all"  #,"-j4" # if this fails, try separate make/make install steps
+    # separate make steps
+    
+    system "make", "--directory=src", "CC=cc", "CXX=c++", "all"  # make c++-core
+    system "make", "--directory=contrib", "CC=cc", "CXX=c++", "all" # make c++-contribs
+    #system "make", "c++-dist"
+    #system "make", "c++-shared"
+    # Contentof  of make c++shared
+    system "make", "--directory=src", "CC=cc", "CXX=c++", "SHARED=-shared", "shared"
+    system "make", "--directory=contrib", "CC=cc", "CXX=c++", "SHARED=-shared","shared"
+    #####
+    system "make", "--directory=src", "CC=cc", "CXX=c++", "copy"
     #system "make", "clang++-all" # if this fails, try separate make/make install steps
     # system "cp -r build/dist/* #{prefix}"
-    system "make", "c++-install"
+    #system "make", "c++-install", "INSTALL_DIR=#{prefix}/"
+    # For the time being manually put commands in "make insta;;"
     #system "make", "clang++-install"
+    system "find", "../build/admb", "-type", "d", "-exec", "chmod", "755", "{}", "\;"
+	  system "find", "../build/admb", "-type", "f", "-exec", "chmod", "644", "{}", "\;"
+    system "chmod", "a+rx", "../build/admb/bin/admb"
+	  system "chmod", "a+rx", "../build/admb/bin/adlink"
+	  system "chmod", "a+rx", "../build/admb/bin/adcomp"
+	  system "chmod", "a+rx", "../build/admb/bin/tpl2cpp"
+	  system "chmod", "a+rx", "../build/admb/bin/tpl2rem"
+	  system "chmod", "a+rx", "../build/admb/contrib"
+	  system "chmod", "a+r", "../build/admb/bin/sed*"
+	  system "chmod", "a+r", "../build/admb/include/*.*"
+	  system "chmod", "a+r", "../build/admb/include/contrib/*.*"
+    
+    #system "cp", "-Rvf", "../build/admb", "$(INSTALL_DIR)admb"
+    system "cp", "-Rvf", "../build/admb", "$(INSTALL_DIR)"
+    #system "ln", "-svf", "$(INSTALL_DIR)admb/bin/admb", "$(INSTALL_DIR)bin/admb"
+    system "ln", "-svf", "$(INSTALL_DIR)bin/admb", "$(INSTALL_DIR)bin/admb"
   end
 
   test do
@@ -39,6 +69,6 @@ class Admb < Formula
     # The installed folder is not in the path, so use the entire path to any
     # executables being tested: `system "#{bin}/program", "do", "something"`.
     #system "false"
-    system "make", "clang++-test"
+    system "make", "c++-test"
   end
 end
