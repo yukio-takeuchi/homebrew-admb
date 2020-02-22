@@ -27,12 +27,12 @@ class Admb < Formula
     # separate make steps
     
     system "make", "--directory=src", "CC=cc", "CXX=c++", "all"  # make c++-core
-    system "make", "--directory=contrib", "CC=cc", "CXX=c++", "all" # make c++-contribs
+    system "make", "--directory=contrib", "-j1", "CC=cc", "CXX=c++", "all" # make c++-contribs
     #system "make", "c++-dist"
     #system "make", "c++-shared"
     # Contentof  of make c++shared
     system "make", "--directory=src", "CC=cc", "CXX=c++", "SHARED=-shared", "shared"
-    system "make", "--directory=contrib", "CC=cc", "CXX=c++", "SHARED=-shared","shared"
+    system "make", "--directory=contrib", "-j1", "CC=cc", "CXX=c++", "SHARED=-shared","shared"
     #####
     system "make", "--directory=src", "CC=cc", "CXX=c++", "copy"
     #system "make", "clang++-all" # if this fails, try separate make/make install steps
@@ -40,27 +40,35 @@ class Admb < Formula
     #system "make", "c++-install", "INSTALL_DIR=#{prefix}/"
     # For the time being manually put commands in "make insta;;"
     #system "make", "clang++-install"
+    #  make --directory=src CC=cc CXX=c++ install
     system "echo $(pwd)"
-    system "cd","src"    
-    system "echo $(pwd)"
-    system "find", "../build/admb", "-type", "d", "-exec", "chmod", "755", "{}", "\;"
-	  system "find", "../build/admb", "-type", "f", "-exec", "chmod", "644", "{}", "\;"
-    system "chmod", "a+rx", "../build/admb/bin/admb"
-	  system "chmod", "a+rx", "../build/admb/bin/adlink"
-	  system "chmod", "a+rx", "../build/admb/bin/adcomp"
-	  system "chmod", "a+rx", "../build/admb/bin/tpl2cpp"
-	  system "chmod", "a+rx", "../build/admb/bin/tpl2rem"
-	  system "chmod", "a+rx", "../build/admb/contrib"
-	  system "chmod", "a+r", "../build/admb/bin/sed*"
-	  system "chmod", "a+r", "../build/admb/include/*.*"
-	  system "chmod", "a+r", "../build/admb/include/contrib/*.*"
+    #system "cd","src"    
+    #system "echo $(pwd)"
+    system "find", "build/admb", "-type", "d", "-exec", "chmod", "755", "{}", "\;"
+	  system "find", "build/admb", "-type", "f", "-exec", "chmod", "644", "{}", "\;"
+    system "chmod", "a+rx", "build/admb/bin/admb"
+	  system "chmod", "a+rx", "build/admb/bin/adlink"
+	  system "chmod", "a+rx", "build/admb/bin/adcomp"
+	  system "chmod", "a+rx", "build/admb/bin/tpl2cpp"
+	  system "chmod", "a+rx", "build/admb/bin/tpl2rem"
+	  system "chmod", "a+rx", "build/admb/contrib"
+    #system "chmod　a+r　build/admb/bin/sed*"
+    system "find", "build/admb", "-name", "sed*" , "-exec", "chmod", "a+r", "{}", "\;"
+    #system "chmod　a+r　build/admb/include/*.*"
+    system "find", "build/admb/include", "-name", "*.*" , "-exec", "chmod", "a+r", "{}", "\;"
+    #system "chmod　a+r　build/admb/include/contrib/*.*"
+    system "find", "build/admb/include/contrib", "-name", "*.*" , "-exec", "chmod", "a+r", "{}", "\;"
     system "echo $(pwd)"
     #system "cd","src"
     #system "echo $(pwd)"
     #system "cp", "-Rvf", "../build/admb", "$(INSTALL_DIR)admb"
-    system "cp", "-Rvf", "../build/admb", "$(INSTALL_DIR)"
+    system "echo PREFIX is"
+    system "echo","#{prefix}"
+    #system "cp", "-Rvf", "build/admb/", "#{prefix}"
+    system "install -d   build/admb/*  #{prefix}"
+    #system "ls build/admb/ | cp -Rvf #{prefix}"
     #system "ln", "-svf", "$(INSTALL_DIR)admb/bin/admb", "$(INSTALL_DIR)bin/admb"
-    system "ln", "-svf", "$(INSTALL_DIR)bin/admb", "$(INSTALL_DIR)bin/admb"
+    #system "ln", "-svf", "$(INSTALL_DIR)bin/admb", "$(INSTALL_DIR)bin/admb"
   end
 
   test do
