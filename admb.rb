@@ -31,8 +31,8 @@ class Admb < Formula
     #system "make", "c++-dist"
     #system "make", "c++-shared"
     # Contentof  of make c++shared
-    system "make", "--directory=src", "CC=cc", "CXX=c++", "SHARED=-shared", "shared"
-    system "make", "--directory=contrib", "-j1", "CC=cc", "CXX=c++", "SHARED=-shared","shared"
+    #system "make", "--directory=src", "CC=cc", "CXX=c++", "SHARED=-shared", "shared"
+    #system "make", "--directory=contrib", "-j1", "CC=cc", "CXX=c++", "SHARED=-shared","shared"
     #####
     system "make", "--directory=src", "CC=cc", "CXX=c++", "copy"
     #system "make", "clang++-all" # if this fails, try separate make/make install steps
@@ -65,7 +65,10 @@ class Admb < Formula
     system "echo PREFIX is"
     system "echo","#{prefix}"
     #system "cp", "-Rvf", "build/admb/", "#{prefix}"
-    system "install build/admb/* #{prefix}"
+    #system "install build/admb/* #{prefix}"
+    #system "cd build/admb && find -f . . -type d -exec install -v -d  #{prefix}/{} \;"
+    #system "cd build/admb && find -f . . -type f -exec install -v {} \; #{prefix}/"
+    system "cd build/admb && find -f . . -type f -print0 -exec cp -Rvf {} #{prefix}/ \;" 
     #system "ls build/admb/ | cp -Rvf #{prefix}"
     #system "ln", "-svf", "$(INSTALL_DIR)admb/bin/admb", "$(INSTALL_DIR)bin/admb"
     #system "ln", "-svf", "$(INSTALL_DIR)bin/admb", "$(INSTALL_DIR)bin/admb"
