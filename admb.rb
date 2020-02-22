@@ -65,7 +65,7 @@ class Admb < Formula
     system "echo PREFIX is"
     system "echo","#{prefix}"
     #system "cp", "-Rvf", "build/admb/", "#{prefix}"
-    system "install",    "build/admb/*",  "#{prefix}"
+    system "install build/admb/* #{prefix}"
     #system "ls build/admb/ | cp -Rvf #{prefix}"
     #system "ln", "-svf", "$(INSTALL_DIR)admb/bin/admb", "$(INSTALL_DIR)bin/admb"
     #system "ln", "-svf", "$(INSTALL_DIR)bin/admb", "$(INSTALL_DIR)bin/admb"
