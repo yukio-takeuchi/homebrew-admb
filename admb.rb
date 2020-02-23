@@ -31,8 +31,8 @@ class Admb < Formula
     #system "make", "c++-dist"
     #system "make", "c++-shared"
     # Contentof  of make c++shared
-    #system "make", "--directory=src", "CC=cc", "CXX=c++", "SHARED=-shared", "shared"
-    #system "make", "--directory=contrib", "-j1", "CC=cc", "CXX=c++", "SHARED=-shared","shared"
+    system "make", "--directory=src", "CC=cc", "CXX=c++", "SHARED=-shared", "shared"
+    system "make", "--directory=contrib", "-j1", "CC=cc", "CXX=c++", "SHARED=-shared","shared"
     #####
     system "make", "--directory=src", "CC=cc", "CXX=c++", "copy"
     #system "make", "clang++-all" # if this fails, try separate make/make install steps
@@ -58,12 +58,12 @@ class Admb < Formula
     system "find", "build/admb/include", "-name", "*.*" , "-exec", "chmod", "a+r", "{}", "\;"
     #system "chmod　a+r　build/admb/include/contrib/*.*"
     system "find", "build/admb/include/contrib", "-name", "*.*" , "-exec", "chmod", "a+r", "{}", "\;"
-    system "echo $(pwd)"
+    #system "echo $(pwd)"
     #system "cd","src"
     #system "echo $(pwd)"
     #system "cp", "-Rvf", "../build/admb", "$(INSTALL_DIR)admb"
-    system "echo PREFIX is"
-    system "echo","#{prefix}"
+    #system "echo PREFIX is"
+    #system "echo","#{prefix}"
     #system "cp", "-Rvf", "build/admb/", "#{prefix}"
     #system "install build/admb/* #{prefix}"
     system "cd build/admb && find -f . . -type d -exec install -v -d #{prefix}/{} \\;"
@@ -85,6 +85,7 @@ class Admb < Formula
     # The installed folder is not in the path, so use the entire path to any
     # executables being tested: `system "#{bin}/program", "do", "something"`.
     #system "false"
-    system "make", "c++-test"
+    #system "make", "c++-test"
+    system "make", "--directory=#{prefix}/tests", "all", "CXX=clang++"
   end
 end
