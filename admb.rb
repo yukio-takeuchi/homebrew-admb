@@ -9,20 +9,24 @@ class Admb < Formula
   head "https://github.com/yukio-takeuchi/admb.git"
 
   def install
-    # ENV.deparallelize  # if your formula fails when building in parallel
+    # $ clang --version | grep version | sed "s/.*version \([0-9]*\.[0-9]*\).*/\1/"
+    # 11.0
+    # $ clang  -dM -E -x c   /dev/null |grep clang_major | awk -F " " '{ print $NF }'
+    # 11 
+    # ENV.deparallelize   if your formula fails when building in parallel
 
     # separate make steps
     
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"  # make c++-core
-    system "make", "--directory=contrib", "-j1", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all" # make c++-contribs
+    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all" # make c++-contribs
     #system "make", "c++-dist"
     #system "make", "c++-shared"
     # Contentof  of make c++shared
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"
-    system "make", "--directory=contrib", "-j1", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared","shared"
+    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared","shared"
     #####
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cc}", "copy"
-    #system "make", "clang++-all" # if this fails, try separate make/make install steps
+    #system "make", "clang++-all" 
     # system "cp -r build/dist/* #{prefix}"
     #system "make", "c++-install", "INSTALL_DIR=#{prefix}/"
     # For the time being manually put commands in "make insta;;"
@@ -33,30 +37,32 @@ class Admb < Formula
     #system "echo $(pwd)"
     system "find", "build/admb", "-type", "d", "-exec", "chmod", "755", "{}", "\;"
 	  system "find", "build/admb", "-type", "f", "-exec", "chmod", "644", "{}", "\;"
-    system "chmod", "a+rx", "build/admb/bin/admb"
-	  system "chmod", "a+rx", "build/admb/bin/adlink"
-	  system "chmod", "a+rx", "build/admb/bin/adcomp"
-	  system "chmod", "a+rx", "build/admb/bin/tpl2cpp"
-	  system "chmod", "a+rx", "build/admb/bin/tpl2rem"
-	  system "chmod", "a+rx", "build/admb/contrib"
+    #system "chmod", "a+rx", "build/admb/bin/admb"
+    #chmod "a+rx","build/admb/bin/admb"
+    #system "chmod", "a+rx", "build/admb/bin/adlink"
+    #chmod "a+rx", "build/admb/bin/adlink"
+	  #system "chmod", "a+rx", "build/admb/bin/adcomp"
+    #chmod "a+rx", "build/admb/bin/adcomp"
+    #system "chmod", "a+rx", "build/admb/bin/tpl2cpp"
+    #chmod "a+rx", "build/admb/bin/tpl2cpp"
+	  #system "chmod", "a+rx", "build/admb/bin/tpl2rem"
+    #system "chmod", "a+rx", "build/admb/contrib"
+    chmod "a+rx", %w(build/admb/bin/admb, \
+      build/admb/bin/adlink, \
+      build/admb/bin/adcomp, \
+      build/admb/bin/tpl2cpp, \
+      build/admb/bin/tpl2rem, \
+      build/admb/contrib )
     #system "chmod　a+r　build/admb/bin/sed*"
     system "find", "build/admb", "-name", "sed*" , "-exec", "chmod", "a+r", "{}", "\;"
     #system "chmod　a+r　build/admb/include/*.*"
     system "find", "build/admb/include", "-name", "*.*" , "-exec", "chmod", "a+r", "{}", "\;"
     #system "chmod　a+r　build/admb/include/contrib/*.*"
     system "find", "build/admb/include/contrib", "-name", "*.*" , "-exec", "chmod", "a+r", "{}", "\;"
-    #system "echo $(pwd)"
-    #system "cd","src"
-    #system "echo $(pwd)"
     #system "cp", "-Rvf", "../build/admb", "$(INSTALL_DIR)admb"
-    #system "echo PREFIX is"
-    #system "echo","#{prefix}"
     #system "cp", "-Rvf", "build/admb/", "#{prefix}"
-    #system "install build/admb/* #{prefix}"
     system "cd build/admb && find -f . . -type d -exec install -v -d #{prefix}/{} \\;"
     system "cd build/admb && find -f . . -type f -exec install -v {}  #{prefix}/{} \\;"
-    #system "cd build/admb && find -f . . -type f -print0 -exec cp -Rvf {} #{prefix}/ \\;" 
-    #system "ls build/admb/ | cp -Rvf #{prefix}"
     #system "ln", "-svf", "$(INSTALL_DIR)admb/bin/admb", "$(INSTALL_DIR)bin/admb"
     #system "ln", "-svf", "$(INSTALL_DIR)bin/admb", "$(INSTALL_DIR)bin/admb"
   end
