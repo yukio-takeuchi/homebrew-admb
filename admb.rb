@@ -18,12 +18,12 @@ class Admb < Formula
     # separate make steps
     
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"  # make c++-core
-    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all" # make c++-contribs
+    system "make", "-j1" ,"--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all" # make c++-contribs
     #system "make", "c++-dist"
     #system "make", "c++-shared"
     # Contentof  of make c++shared
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"
-    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared","shared"
+    system "make", "-j1" ,"--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared","shared"
     #####
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cc}", "copy"
     #system "make", "clang++-all" 
@@ -34,7 +34,7 @@ class Admb < Formula
     #  make --directory=src CC=cc CXX=c++ install
     system "echo $(pwd)"
     #system "cd","src"    
-    #system "echo $(pwd)"
+    #system "echo PWD is $(pwd)"
     system "find", "build/admb", "-type", "d", "-exec", "chmod", "755", "{}", "\;"
 	  system "find", "build/admb", "-type", "f", "-exec", "chmod", "644", "{}", "\;"
     #system "chmod", "a+rx", "build/admb/bin/admb"
@@ -47,12 +47,12 @@ class Admb < Formula
     #chmod "a+rx", "build/admb/bin/tpl2cpp"
 	  #system "chmod", "a+rx", "build/admb/bin/tpl2rem"
     #system "chmod", "a+rx", "build/admb/contrib"
-    chmod "a+rx", %w(build/admb/bin/admb, \
-      build/admb/bin/adlink, \
-      build/admb/bin/adcomp, \
-      build/admb/bin/tpl2cpp, \
-      build/admb/bin/tpl2rem, \
-      build/admb/contrib )
+    #chmod "a+rx", %w(build/admb/bin/admb, \
+    #  build/admb/bin/adlink, \
+    #  build/admb/bin/adcomp, \
+    #  build/admb/bin/tpl2cpp, \
+    #  build/admb/bin/tpl2rem, \
+    #  build/admb/contrib )
     #system "chmod　a+r　build/admb/bin/sed*"
     system "find", "build/admb", "-name", "sed*" , "-exec", "chmod", "a+r", "{}", "\;"
     #system "chmod　a+r　build/admb/include/*.*"
