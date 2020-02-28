@@ -25,7 +25,7 @@ class Admb < Formula
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"
     system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared","shared"
     #####
-    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cc}", "copy"
+    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
     #system "make", "clang++-all" 
     # system "cp -r build/dist/* #{prefix}"
     #system "make", "c++-install", "INSTALL_DIR=#{prefix}/"
