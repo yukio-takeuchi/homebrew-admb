@@ -3,11 +3,13 @@ class Admb < Formula
   desc "AD Model builder"
   homepage "http://admb-project.org"
   url "https://github.com/admb-project/admb/releases/download/admb-12.1/admb-12.1-src.zip"
-  sha256 "a5541153ea55707c2a873eddc470906630aeded6d1f79c2a0a1617e8414928d0"
+  url "https://github.com/admb-project/admb/archive/admb-12.2pre.tar.gz"
+  #sha256 "a5541153ea55707c2a873eddc470906630aeded6d1f79c2a0a1617e8414928d0"
+  sha256 "56832c09f0e5155cba6f38cfcfa7acae24b825a994de59c9ae880becce92ab65"
   head "https://github.com/admb-project/admb.git"
   # For testing use folked repo
   # head "https://github.com/yukio-takeuchi/admb.git"
-  revision 2     # update github repo to original one
+  #revision 2     # update github repo to original one
   def install
     # $ clang --version | grep version | sed "s/.*version \([0-9]*\.[0-9]*\).*/\1/"
     # 11.0
