@@ -4,10 +4,14 @@ class Admb < Formula
   homepage "http://admb-project.org"
   #url "https://github.com/admb-project/admb/releases/download/admb-12.1/admb-12.1-src.zip"
   #url "https://github.com/admb-project/admb/archive/admb-12.2pre.tar.gz"
-  url "https://github.com/admb-project/admb/archive/admb-12.2.tar.gz"
+  #url "https://github.com/admb-project/admb/archive/admb-12.2.tar.gz"
   #sha256 "a5541153ea55707c2a873eddc470906630aeded6d1f79c2a0a1617e8414928d0"
   #sha256 "56832c09f0e5155cba6f38cfcfa7acae24b825a994de59c9ae880becce92ab65"
-  sha256 "cd1338df213a98f4d5134c8b317a48571ccdda53bc9ac17e29a41682ba9f34fb"
+  #sha256 "cd1338df213a98f4d5134c8b317a48571ccdda53bc9ac17e29a41682ba9f34fb"
+  url "https://github.com/admb-project/admb/archive/admb-12.3pre2.tar.gz"
+  sha256 "b89a616c6ad495ecf834a0b6ecf0f5118dfd4540ec8a86dcd94bf4513b3356b1"
+  version "12.3pre2"
+  #head "https://github.com/admb-project/admb.git" , :branch => "issue157" 
   head "https://github.com/admb-project/admb.git"
   # For testing use folked repo
   # head "https://github.com/yukio-takeuchi/admb.git"
@@ -21,15 +25,15 @@ class Admb < Formula
 
     # separate make steps
     
-    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"  # make c++-core
-    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all" # make c++-contribs
+    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "CXXFLAGS=-DUSE_PTR_INIT_PARAMS", "all"  # make c++-core
+    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "CXXFLAGS=-DUSE_PTR_INIT_PARAMS","all" # make c++-contribs
     #system "make", "c++-dist"
     #system "make", "c++-shared"
     # Contentof  of make c++shared
-    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"
-    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared","shared"
+    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "CXXFLAGS=-DUSE_PTR_INIT_PARAMS","SHARED=-shared", "shared"
+    system "make", "--directory=contrib",  "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "CXXFLAGS=-DUSE_PTR_INIT_PARAMS","SHARED=-shared","shared"
     #####
-    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
+    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "CXXFLAGS=-DUSE_PTR_INIT_PARAMS","copy"
     #system "make", "clang++-all" 
     # system "cp -r build/dist/* #{prefix}"
     #system "make", "c++-install", "INSTALL_DIR=#{prefix}/"
