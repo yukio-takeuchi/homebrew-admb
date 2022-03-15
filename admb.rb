@@ -18,6 +18,7 @@ class Admb < Formula
   # For testing use folked repo
   # head "https://github.com/yukio-takeuchi/admb.git"
   #revision 2     # update github repo to original one
+  depends_on flex
   def install
     # $ clang --version | grep version | sed "s/.*version \([0-9]*\.[0-9]*\).*/\1/"
     # 11.0
