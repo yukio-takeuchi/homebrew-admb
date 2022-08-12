@@ -8,7 +8,7 @@ class Admb < Formula
   head "https://github.com/admb-project/admb.git" 
   revision 3
   depends_on "flex"
-  keg_only "cs.h conflicts with suitesparse"
+  keg_only "cs.h conflicts with cs.h from suitesparse"
   license ""
   def install
     # $ clang --version | grep version | sed "s/.*version \([0-9]*\.[0-9]*\).*/\1/"
