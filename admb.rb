@@ -6,7 +6,7 @@ class Admb < Formula
   sha256 "d1e3f52baa7dee6c7d9eca2b3946c61e7f5468cf6c07307469162fc5a7acd310"
   #head "https://github.com/admb-project/admb.git" , :branch => "issue157" 
   head "https://github.com/admb-project/admb.git" , :branch => "admb-13.0"
-  revision 1
+  revision 2
   depends_on "flex"
   def install
     # $ clang --version | grep version | sed "s/.*version \([0-9]*\.[0-9]*\).*/\1/"
@@ -65,5 +65,8 @@ class Admb < Formula
     #system "false"
     #system "make", "#{ENV.cxx}-test"
     system "make", "--directory=#{prefix}/tests", "all", "CXX=#{ENV.cxx}"
+    Dir.chdir "#{prefix}" do
+      system "make", test
+    end 
   end
 end
