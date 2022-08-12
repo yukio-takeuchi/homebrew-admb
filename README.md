@@ -1,7 +1,10 @@
 # homebrew-admb
-## AD Model builder formula from github repository
+## Unofficial formula for AD Model builder from its github repository
 
-### Unofficial formula of AD Model Builder
+### ADMB Version 13.0
+
+#### This formula is keg_only
+
 
 
 
