@@ -6,7 +6,7 @@ class Admb < Formula
   sha256 "d1e3f52baa7dee6c7d9eca2b3946c61e7f5468cf6c07307469162fc5a7acd310"
   #head "https://github.com/admb-project/admb.git" , :branch => "issue157" 
   head "https://github.com/admb-project/admb.git" 
-  revision 3
+  revision 4
   depends_on "flex"
   keg_only "cs.h conflicts with cs.h from suitesparse"
   license ""
@@ -48,10 +48,31 @@ class Admb < Formula
     system "echo $(pwd)"
     # system ":chdir", "build/admb", "find",  ".", "-type", "d", "-exec", "install", "-v", "-d", "#{prefix}/{}", "\\;"
     #spawn "find . -type d -exec install -v -d #{prefix}/{} \\; " , :chdir=>"build/admb"
-    Dir.chdir "build/admb" do
-      system "find . -type d -exec install -v -d #{prefix}/{} \\; "
-      system "find . -type f -exec install -vC {} #{prefix}/{} \\; "
-    end
+    #Dir.chdir "build/admb" do
+    #  system "find . -type d -exec install -v -d #{prefix}/{} \\; "
+    #  system "find . -type f -exec install -vC {} #{prefix}/{} \\; "
+    #end
+    system "echo 55 $(pwd)"
+    bin.install Dir["build/admb/bin/*"]
+    lib.install Dir["build/admb/lib/*"]
+    include.install Dir["build/admb/include/*"]
+    prefix.install  Dir["build/admb/contrib"]
+    prefix.install Dir["build/admb/examples"]
+    system "echo 61 $(pwd)"
+    prefix.install Dir["build/admb/scripts"]
+    system "echo 63 $(pwd)"
+    prefix.install Dir["build/admb/src"]
+    system "echo 65 $(pwd)"
+    prefix.install Dir["build/admb/tests"]
+    system "echo 67 $(pwd)"
+    prefix.install Dir["build/admb/utilities"]
+    system "echo 69 $(pwd)"
+    prefix.install "Makefile" 
+    system "echo 70 $(pwd)"
+    prefix.install Dir["*.txt"]
+    system "echo 72 $(pwd)"
+    prefix.install Dir["*.md"]
+    system "echo 74 $(pwd)"
   end
 
   test do
