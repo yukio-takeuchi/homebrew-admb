@@ -13,8 +13,6 @@ class Admb < Formula
     # 11.0
     # $ clang  -dM -E -x c   /dev/null |grep clang_major | awk -F " " '{ print $NF }'
     # 11
-    # ENV.deparallelize   if your formula fails when building in parallel
-    # separate make steps
     #
     # clang++-all:
     # $(MAKE) clang++-dist
@@ -35,14 +33,9 @@ class Admb < Formula
     # clang++-install:
     # $(MAKE) --directory=src CC=clang CXX=clang++ install
     # system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "install"
-    system "echo $(pwd)"
     system "find", "build/admb", "-type", "d", "-exec", "chmod", "-v", "755", "{}", "\;"
-    system "echo $(pwd)"
     system "find", "build/admb", "-type", "f", "-exec", "chmod", "-v", "644", "{}", "\;"
     # cp -Rvf ../build/$(ADMB_VER) $(INSTALL_DIR)
-    system "echo $(pwd)"
-    # system ":chdir", "build/admb", "find",  ".", "-type", "d", "-exec", "install", "-v", "-d", "#{prefix}/{}", "\\;"
-    # spawn "find . -type d -exec install -v -d #{prefix}/{} \\; " , :chdir=>"build/admb"
     # Dir.chdir "build/admb" do
     #  system "find . -type d -exec install -v -d #{prefix}/{} \\; "
     #  system "find . -type f -exec install -vC {} #{prefix}/{} \\; "
