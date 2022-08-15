@@ -50,15 +50,67 @@ class Admb < Formula
 	  # $(MAKE) --directory=src CC=clang CXX=clang++ SHARED=-shared shared
 	  # $(MAKE) --directory=contrib CC=clang CXX=clang++ SHARED=-shared shared
     ######## clang++-all:
-    system "make", "#{ENV.cxx}-contribs"
-    system "make", "#{ENV.cxx}-shared"
-    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
-    ######## clang++-debug:
-    ######## clang++-all DEBUG=yes 
-    system "make", "#{ENV.cxx}-debug"
-    system "find", "build/admb", "-type", "d", "-exec", "chmod", "-v", "755", "{}", "\;"
-    system "find", "build/admb", "-type", "f", "-exec", "chmod", "-v", "644", "{}", "\;"
-    # install
+    if OS.mac?
+      system "make", "#{ENV.cxx}-contribs"
+      system "make", "#{ENV.cxx}-shared"
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
+      ######## clang++-debug:
+      ######## clang++-all DEBUG=yes 
+      system "make", "#{ENV.cxx}-debug"
+      system "find", "build/admb", "-type", "d", "-exec", "chmod", "-v", "755", "{}", "\;"
+      system "find", "build/admb", "-type", "f", "-exec", "chmod", "-v", "644", "{}", "\;"
+    end
+    
+    # src/GNUmakefile
+    # all: dist
+    # dist: libs
+    # 
+    # g++: g++-all
+    # g++-all: 
+	  # $(MAKE) g++-dist
+	  # $(MAKE) g++-shared
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ copy
+    # g++-dist: 
+	  # $(MAKE) g++-core
+	  # $(MAKE) g++-contribs
+    # g++-debug:
+	  # $(MAKE) g++-all DEBUG=yes
+    # g++-core:
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ all
+    # g++-contribs: g++-core
+	  # $(MAKE) --directory=contrib CC=gcc CXX=g++ all
+    # g++-docs:
+	  # $(MAKE) --directory=docs CC=gcc CXX=g++ all
+    # g++-gtests:
+	  # $(MAKE) --directory=tests CC=gcc CXX=g++ unit-gtests
+    # g++-coverage:
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ SAFE_ONLY=yes dist
+	  # $(MAKE) --directory=tests CC=gcc CXX=g++ coverage
+    # g++-verify:
+	  # $(MAKE) --directory=tests CC=gcc CXX=g++ verify
+    # g++-shared:
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ SHARED=-shared shared
+	  # $(MAKE) --directory=contrib CC=gcc CXX=g++ SHARED=-shared shared
+    # g++-install:
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ install
+    # g++-check:
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ check
+    # g++-clean:
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ clean
+	  # $(MAKE) --directory=contrib CC=gcc CXX=g++ clean
+	  # $(MAKE) --directory=scripts CC=gcc CXX=g++ clean
+	  # $(MAKE) --directory=tests CC=gcc CXX=g++ clean
+	  # $(MAKE) --directory=examples CC=gcc CXX=g++ clean
+    # g++-zip:
+	  # $(MAKE) --directory=src CC=gcc CXX=g++ zip
+    if OS.linux?
+      # g++-core:
+	    system "$(MAKE)", "--directory=src". "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", all
+      # g++-contribs: g++-core
+	    # $(MAKE) --directory=contrib CC=gcc CXX=g++ all
+    end
+
+      # install
     # Use custom commands
     bin.install Dir["build/admb/bin/*"]
     lib.install Dir["build/admb/lib/*"]
