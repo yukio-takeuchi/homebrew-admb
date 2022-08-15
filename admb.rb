@@ -105,7 +105,7 @@ class Admb < Formula
 	  # $(MAKE) --directory=src CC=gcc CXX=g++ zip
     if OS.linux?
       # g++-core:
-	    system "$(MAKE)", "--directory=src". "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", all
+	    system "make", "--directory=src". "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", all
       # g++-contribs: g++-core
 	    # $(MAKE) --directory=contrib CC=gcc CXX=g++ all
     end
