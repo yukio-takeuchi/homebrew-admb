@@ -20,6 +20,13 @@ You need to call the admb command located in /usr/local/opt/admb/bin/
 
 This formula has not been tested with any arm Mac.
 
+### Linux
+
+On linux, homebrew(linuxbrew) tyies using its own gcc and g++ to install admb.
+CC and CXX refer to gcc-12 and g++-12 respectively. This causes the installtion error.
+This problem should be resolved in the future.
+
+
 
 
 
