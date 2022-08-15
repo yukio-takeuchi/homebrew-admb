@@ -4,7 +4,7 @@ class Admb < Formula
   url "https://github.com/admb-project/admb/archive/refs/tags/admb-13.0.tar.gz"
   sha256 "d1e3f52baa7dee6c7d9eca2b3946c61e7f5468cf6c07307469162fc5a7acd310"
   license "BSD-3-Clause"
-  revision 4
+  revision 5
   head "https://github.com/admb-project/admb.git"
   keg_only "cs.h conflicts with cs.h from suitesparse"
   depends_on "flex"
@@ -22,24 +22,44 @@ class Admb < Formula
     # $(MAKE) --directory=src CC=clang CXX=clang++ SHARED=-shared shared
     # $(MAKE) --directory=contrib CC=clang CXX=clang++ SHARED=-shared shared
     # $(MAKE) clang++-dist
-
+    ###############
+    # clang
+    # clang++: clang++-all
+    # clang++-all:
+	  # $(MAKE) clang++-dist
+	  # $(MAKE) clang++-shared
+	  # $(MAKE) --directory=src CC=clang CXX=clang++ copy
+    # clang++-dist:
+	  # $(MAKE) clang++-contribs
+    # clang++-debug:
+	  # $(MAKE) clang++-all DEBUG=yes
+    # clang++-core:
+	  # $(MAKE) --directory=src CC=clang CXX=clang++ all
+    # clang++-contribs: clang++-core
+	  # $(MAKE) --directory=contrib CC=clang CXX=clang++ all
+    # clang++-docs:
+	  # $(MAKE) --directory=docs CC=clang CXX=clang++ all
+    # clang++-gtests:
+	  # $(MAKE) --directory=tests CC=clang CXX=clang++ unit-gtests
+    # clang++-coverage:
+	  # $(MAKE) --directory=src CC=clang CXX=clang++ SAFE_ONLY=yes dist
+	  # $(MAKE) --directory=tests CC=clang CXX=clang++ coverage
+    # clang++-verify:
+	  # $(MAKE) --directory=tests CC=clang CXX=clang++ verify
+    # clang++-shared:
+	  # $(MAKE) --directory=src CC=clang CXX=clang++ SHARED=-shared shared
+	  # $(MAKE) --directory=contrib CC=clang CXX=clang++ SHARED=-shared shared
+    ######## clang++-all:
     system "make", "#{ENV.cxx}-contribs"
     system "make", "#{ENV.cxx}-shared"
     system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
-    # clang++-shared:
-    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"
-    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"
-    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
-    # clang++-install:
-    # $(MAKE) --directory=src CC=clang CXX=clang++ install
-    # system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "install"
+    ######## clang++-debug:
+    ######## clang++-all DEBUG=yes 
+    system "make", "#{ENV.cxx}-debug"
     system "find", "build/admb", "-type", "d", "-exec", "chmod", "-v", "755", "{}", "\;"
     system "find", "build/admb", "-type", "f", "-exec", "chmod", "-v", "644", "{}", "\;"
-    # cp -Rvf ../build/$(ADMB_VER) $(INSTALL_DIR)
-    # Dir.chdir "build/admb" do
-    #  system "find . -type d -exec install -v -d #{prefix}/{} \\; "
-    #  system "find . -type f -exec install -vC {} #{prefix}/{} \\; "
-    # end
+    # install
+    # Use custom commands
     bin.install Dir["build/admb/bin/*"]
     lib.install Dir["build/admb/lib/*"]
     include.install Dir["build/admb/include/*"]
