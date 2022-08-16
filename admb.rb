@@ -4,7 +4,7 @@ class Admb < Formula
   url "https://github.com/admb-project/admb/archive/refs/tags/admb-13.0.tar.gz"
   sha256 "d1e3f52baa7dee6c7d9eca2b3946c61e7f5468cf6c07307469162fc5a7acd310"
   license "BSD-3-Clause"
-  revision 5
+  revision 6
   head "https://github.com/admb-project/admb.git"
   keg_only "cs.h conflicts with cs.h from suitesparse"
   depends_on "flex"
@@ -26,113 +26,121 @@ class Admb < Formula
     # clang
     # clang++: clang++-all
     # clang++-all:
-	  # $(MAKE) clang++-dist
-	  # $(MAKE) clang++-shared
-	  # $(MAKE) --directory=src CC=clang CXX=clang++ copy
+    # $(MAKE) clang++-dist
+    # $(MAKE) clang++-shared
+    # $(MAKE) --directory=src CC=clang CXX=clang++ copy
     # clang++-dist:
-	  # $(MAKE) clang++-contribs
+    # $(MAKE) clang++-contribs
     # clang++-debug:
-	  # $(MAKE) clang++-all DEBUG=yes
+    # $(MAKE) clang++-all DEBUG=yes
     # clang++-core:
-	  # $(MAKE) --directory=src CC=clang CXX=clang++ all
+    # $(MAKE) --directory=src CC=clang CXX=clang++ all
     # clang++-contribs: clang++-core
-	  # $(MAKE) --directory=contrib CC=clang CXX=clang++ all
+    # $(MAKE) --directory=contrib CC=clang CXX=clang++ all
     # clang++-docs:
-	  # $(MAKE) --directory=docs CC=clang CXX=clang++ all
+    # $(MAKE) --directory=docs CC=clang CXX=clang++ all
     # clang++-gtests:
-	  # $(MAKE) --directory=tests CC=clang CXX=clang++ unit-gtests
+    # $(MAKE) --directory=tests CC=clang CXX=clang++ unit-gtests
     # clang++-coverage:
-	  # $(MAKE) --directory=src CC=clang CXX=clang++ SAFE_ONLY=yes dist
-	  # $(MAKE) --directory=tests CC=clang CXX=clang++ coverage
+    # $(MAKE) --directory=src CC=clang CXX=clang++ SAFE_ONLY=yes dist
+    # $(MAKE) --directory=tests CC=clang CXX=clang++ coverage
     # clang++-verify:
-	  # $(MAKE) --directory=tests CC=clang CXX=clang++ verify
+    # $(MAKE) --directory=tests CC=clang CXX=clang++ verify
     # clang++-shared:
-	  # $(MAKE) --directory=src CC=clang CXX=clang++ SHARED=-shared shared
-	  # $(MAKE) --directory=contrib CC=clang CXX=clang++ SHARED=-shared shared
+    # $(MAKE) --directory=src CC=clang CXX=clang++ SHARED=-shared shared
+    # $(MAKE) --directory=contrib CC=clang CXX=clang++ SHARED=-shared shared
     ######## clang++-all:
     if OS.mac?
       system "make", "#{ENV.cxx}-contribs"
       system "make", "#{ENV.cxx}-shared"
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
       ######## clang++-debug:
-      ######## clang++-all DEBUG=yes 
+      ######## clang++-all DEBUG=yes
       system "make", "#{ENV.cxx}-debug"
       system "find", "build/admb", "-type", "d", "-exec", "chmod", "-v", "755", "{}", "\;"
       system "find", "build/admb", "-type", "f", "-exec", "chmod", "-v", "644", "{}", "\;"
     end
-    
+
     # src/GNUmakefile
     # all: dist
     # dist: libs
-    # 
+    #
     # g++: g++-all
-    # g++-all: 
-	  # $(MAKE) g++-dist
-	  # $(MAKE) g++-shared
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ copy
-    # g++-dist: 
-	  # $(MAKE) g++-core
-	  # $(MAKE) g++-contribs
+    # g++-all:
+    # $(MAKE) g++-dist
+    # $(MAKE) g++-shared
+    # $(MAKE) --directory=src CC=gcc CXX=g++ copy
+    # g++-dist:
+    # $(MAKE) g++-core
+    # $(MAKE) g++-contribs
     # g++-debug:
-	  # $(MAKE) g++-all DEBUG=yes
+    # $(MAKE) g++-all DEBUG=yes
     # g++-core:
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ all
+    # $(MAKE) --directory=src CC=gcc CXX=g++ all
     # g++-contribs: g++-core
-	  # $(MAKE) --directory=contrib CC=gcc CXX=g++ all
+    # $(MAKE) --directory=contrib CC=gcc CXX=g++ all
     # g++-docs:
-	  # $(MAKE) --directory=docs CC=gcc CXX=g++ all
+    # $(MAKE) --directory=docs CC=gcc CXX=g++ all
     # g++-gtests:
-	  # $(MAKE) --directory=tests CC=gcc CXX=g++ unit-gtests
+    # $(MAKE) --directory=tests CC=gcc CXX=g++ unit-gtests
     # g++-coverage:
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ SAFE_ONLY=yes dist
-	  # $(MAKE) --directory=tests CC=gcc CXX=g++ coverage
+    # $(MAKE) --directory=src CC=gcc CXX=g++ SAFE_ONLY=yes dist
+    # $(MAKE) --directory=tests CC=gcc CXX=g++ coverage
     # g++-verify:
-	  # $(MAKE) --directory=tests CC=gcc CXX=g++ verify
+    # $(MAKE) --directory=tests CC=gcc CXX=g++ verify
     # g++-shared:
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ SHARED=-shared shared
-	  # $(MAKE) --directory=contrib CC=gcc CXX=g++ SHARED=-shared shared
+    # $(MAKE) --directory=src CC=gcc CXX=g++ SHARED=-shared shared
+    # $(MAKE) --directory=contrib CC=gcc CXX=g++ SHARED=-shared shared
     # g++-install:
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ install
+    # $(MAKE) --directory=src CC=gcc CXX=g++ install
     # g++-check:
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ check
+    # $(MAKE) --directory=src CC=gcc CXX=g++ check
     # g++-clean:
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ clean
-	  # $(MAKE) --directory=contrib CC=gcc CXX=g++ clean
-	  # $(MAKE) --directory=scripts CC=gcc CXX=g++ clean
-	  # $(MAKE) --directory=tests CC=gcc CXX=g++ clean
-	  # $(MAKE) --directory=examples CC=gcc CXX=g++ clean
+    # $(MAKE) --directory=src CC=gcc CXX=g++ clean
+    # $(MAKE) --directory=contrib CC=gcc CXX=g++ clean
+    # $(MAKE) --directory=scripts CC=gcc CXX=g++ clean
+    # $(MAKE) --directory=tests CC=gcc CXX=g++ clean
+    # $(MAKE) --directory=examples CC=gcc CXX=g++ clean
     # g++-zip:
-	  # $(MAKE) --directory=src CC=gcc CXX=g++ zip
+    # $(MAKE) --directory=src CC=gcc CXX=g++ zip
     if OS.linux?
-      # g++-all: 
-	    # $(MAKE) g++-dist
-	    # $(MAKE) g++-shared
-	    # $(MAKE) --directory=src CC=gcc CXX=g++ copy      
-      # g++-dist: 
-	    # $(MAKE) g++-core
-	    # $(MAKE) g++-contribs
+      # g++-all:
+      # $(MAKE) g++-dist
+      # $(MAKE) g++-shared
+      # $(MAKE) --directory=src CC=gcc CXX=g++ copy
+      # g++-dist:
+      # $(MAKE) g++-core
+      # $(MAKE) g++-contribs
       # g++-core:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
       # g++-contribs: g++-core
-	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
+      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
       # g++-shared:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared", "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"
-      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared",  "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"    
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      "SHARED=-shared", "shared", "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"
+      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      "SHARED=-shared", "shared", "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
       # DEBUG build
       # g++-core:
-	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
       # g++-contribs: g++-core
-	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
+      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      "all", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
       # g++-shared:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
-      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"    
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+       "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
+      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
     end
 
-      # install
+    # install
     # Use custom commands
     bin.install Dir["build/admb/bin/*"]
     lib.install Dir["build/admb/lib/*"]
