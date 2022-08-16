@@ -112,12 +112,22 @@ class Admb < Formula
 	    # $(MAKE) g++-core
 	    # $(MAKE) g++-contribs
       # g++-core:
-	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
+	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -std=c++17"
       # g++-contribs: g++-core
-	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
+	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -std=c++17"
       # g++-shared:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared"
-      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"    
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared", "ADCXXFLAGS= -std=c++17"
+      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared", "ADCXXFLAGS= -std=c++17"    
+      # $(MAKE) --directory=src CC=gcc CXX=g++ copy
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
+      # DEBUG build
+      # g++-core:
+	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -std=c++17"
+      # g++-contribs: g++-core
+	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -std=c++17"
+      # g++-shared:
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -std=c++17"
+      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -std=c++17"    
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
     end
