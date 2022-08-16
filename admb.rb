@@ -112,9 +112,9 @@ class Admb < Formula
 	    # $(MAKE) g++-core
 	    # $(MAKE) g++-contribs
       # g++-core:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -O3 -std=c++17 -I../build/admb/include"
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
       # g++-contribs: g++-core
-	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -O3 -std=c++17 -I../build/admb/include"
+	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
       # g++-shared:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared", "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared",  "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"    
@@ -122,9 +122,9 @@ class Admb < Formula
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
       # DEBUG build
       # g++-core:
-	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -g -O3 -std=c++17 -I../build/admb/include"
+	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
       # g++-contribs: g++-core
-	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -g -O3 -std=c++17 -I../build/admb/include"
+	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
       # g++-shared:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"    
