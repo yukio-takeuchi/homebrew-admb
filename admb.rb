@@ -112,7 +112,8 @@ class Admb < Formula
       # $(MAKE) g++-core
       # $(MAKE) g++-contribs
       # g++-core:
-      ENV["ADCXXFLAGS"] = "-fPIC  -O3 -std=c++17 -I../build/admb/include"
+      ENV["ADCXXFLAGS"] = \
+      "-D_USE_MATH_DEFINES -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter"
       #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
       #"ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
@@ -129,7 +130,8 @@ class Admb < Formula
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
       # DEBUG build
-      ENV["ADCXXFLAGS"] = "-g -fPIC  -O3 -std=c++17 -I../build/admb/include"
+      ENV["ADCXXFLAGS"] = \
+      "-g -D_USE_MATH_DEFINES -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter -DDEBUG"
       # g++-core:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
       "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
