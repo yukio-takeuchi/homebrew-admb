@@ -112,7 +112,7 @@ class Admb < Formula
 	    # $(MAKE) g++-core
 	    # $(MAKE) g++-contribs
       # g++-core:
-      do ENV["ADCXXFLAGS"] = "-std=c++17"
+      ENV["ADCXXFLAGS"] = "-std=c++17" do
 	      system "= " ,"make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
       end
       # g++-contribs: g++-core
