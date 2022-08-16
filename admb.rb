@@ -104,6 +104,13 @@ class Admb < Formula
     # g++-zip:
 	  # $(MAKE) --directory=src CC=gcc CXX=g++ zip
     if OS.linux?
+      # g++-all: 
+	    # $(MAKE) g++-dist
+	    # $(MAKE) g++-shared
+	    # $(MAKE) --directory=src CC=gcc CXX=g++ copy      
+      # g++-dist: 
+	    # $(MAKE) g++-core
+	    # $(MAKE) g++-contribs
       # g++-core:
 	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
       # g++-contribs: g++-core
@@ -111,6 +118,8 @@ class Admb < Formula
       # g++-shared:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared"
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"    
+      # $(MAKE) --directory=src CC=gcc CXX=g++ copy
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
     end
 
       # install
