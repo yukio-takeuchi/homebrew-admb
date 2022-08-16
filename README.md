@@ -23,8 +23,9 @@ This formula has not been tested with any arm Mac.
 ### Linux
 
 On linux, homebrew(linuxbrew) tyies using its own gcc and g++ to install admb.
-CC and CXX refer to gcc-12 and g++-12 respectively. This causes the installtion error.
-This problem should be resolved in the future.
+CC and CXX refer to gcc-12 and g++-12 respectively. In order to resolve this difficulty
+This formula manually calls probably equivalent calls to build ADMB until when official Makefile
+allow to use gcc-12 and g++-12 (or gcc/g++-XX) as CC and CXX
 
 
 
