@@ -112,37 +112,44 @@ class Admb < Formula
       # $(MAKE) g++-core
       # $(MAKE) g++-contribs
       # g++-core:
-      ENV["ADCXXFLAGS"] = \
-      "-D_USE_MATH_DEFINES -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter"
+      #ENV["ADCXXFLAGS"] = \
+      #"-D_USE_MATH_DEFINES -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter"
+      #ENV["CXXFLAGS_SAF_LIB"]=" $(USER_CXXFLAGS) $(ADCXXFLAGS))
+      #ENV["CXXFLAGS_OPT_LIB"]=\
+      #"-Wextra -D_USE_MATH_DEFINES,-DOPT_LIB -D_USE_MATH_DEFINES, #{ENV['CXXFLAGS_SAF_LIB']}"
+      ENV["CXXFLAGS"]="-fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter"
       #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
       #"ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      #"ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+      "CXXFLAGS= #{ENV['CXXFLAGS']}"
 
       # g++-contribs: g++-core
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+      "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # g++-shared:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+      "SHARED=-shared", "shared", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+      "SHARED=-shared", "shared", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
       # DEBUG build
-      ENV["ADCXXFLAGS"] = \
-      "-g -D_USE_MATH_DEFINES -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter -DDEBUG"
+      #ENV["ADCXXFLAGS"] = \
+      #"-g -D_USE_MATH_DEFINES -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter -DDEBUG"
+      ENV["CXXFLAGS"]="-g -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter -DDEBUG"
       # g++-core:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+      "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # g++-contribs: g++-core
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "all", "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+      "all", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # g++-shared:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-       "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+       "SHARED=-shared", "shared", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+      "SHARED=-shared", "shared", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
     end
