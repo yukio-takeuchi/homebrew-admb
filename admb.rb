@@ -107,7 +107,7 @@ class Admb < Formula
       # g++-core:
 	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
       # g++-contribs: g++-core
-	    # $(MAKE) --directory=contrib CC=gcc CXX=g++ all
+	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
     end
 
       # install
