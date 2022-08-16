@@ -108,6 +108,9 @@ class Admb < Formula
 	    system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
       # g++-contribs: g++-core
 	    system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all"
+      # g++-shared:
+      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",  "SHARED=-shared", "shared"
+      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "SHARED=-shared", "shared"    
     end
 
       # install
