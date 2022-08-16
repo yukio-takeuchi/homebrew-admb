@@ -112,8 +112,12 @@ class Admb < Formula
       # $(MAKE) g++-core
       # $(MAKE) g++-contribs
       # g++-core:
+      ENV["ADCXXFLAGS"] = "-fPIC  -O3 -std=c++17 -I../build/admb/include"
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      #"ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
+      "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
+
       # g++-contribs: g++-core
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
       "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
