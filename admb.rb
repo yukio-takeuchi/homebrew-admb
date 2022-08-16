@@ -4,7 +4,7 @@ class Admb < Formula
   url "https://github.com/admb-project/admb/archive/refs/tags/admb-13.0.tar.gz"
   sha256 "d1e3f52baa7dee6c7d9eca2b3946c61e7f5468cf6c07307469162fc5a7acd310"
   license "BSD-3-Clause"
-  revision 6
+  revision 7
   head "https://github.com/admb-project/admb.git"
   keg_only "cs.h conflicts with cs.h from suitesparse"
   depends_on "flex"
@@ -120,26 +120,27 @@ class Admb < Formula
 
       # g++-contribs: g++-core
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
+      "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       # g++-shared:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"
+      "SHARED=-shared", "shared", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "ADCXXFLAGS= -fPIC -O3 -std=c++17 -I../build/admb/include"
+      "SHARED=-shared", "shared", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
       # DEBUG build
+      ENV["ADCXXFLAGS"] = "-g -fPIC  -O3 -std=c++17 -I../build/admb/include"
       # g++-core:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
+      "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       # g++-contribs: g++-core
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "all", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
+      "all", "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       # g++-shared:
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-       "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
+       "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= -g -fPIC -O3 -std=c++17 -I../build/admb/include"
+      "SHARED=-shared", "shared", "DEBUG=yes", "ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
     end
