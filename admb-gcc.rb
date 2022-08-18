@@ -1,4 +1,4 @@
-class Admb < Formula
+class AdmbGcc < Formula
   desc "AD Model builder"
   homepage "http://admb-project.org"
   url "https://github.com/admb-project/admb/archive/refs/tags/admb-13.0.tar.gz"
