@@ -5,7 +5,7 @@ class Admb < Formula
   sha256 "d1e3f52baa7dee6c7d9eca2b3946c61e7f5468cf6c07307469162fc5a7acd310"
   license "BSD-3-Clause"
   revision 7
-  head "https://github.com/admb-project/admb.git"
+  head "https://github.com/admb-project/admb.git", branch: "dev-13.1"
   keg_only "cs.h conflicts with cs.h from suitesparse"
   depends_on "flex"
   def install
@@ -117,41 +117,50 @@ class Admb < Formula
       #ENV["CXXFLAGS_SAF_LIB"]=" $(USER_CXXFLAGS) $(ADCXXFLAGS))
       #ENV["CXXFLAGS_OPT_LIB"]=\
       #"-Wextra -D_USE_MATH_DEFINES,-DOPT_LIB -D_USE_MATH_DEFINES, #{ENV['CXXFLAGS_SAF_LIB']}"
-      ENV["CXXFLAGS"]="-fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter"
+      #ENV["CXXFLAGS"]="-fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter"
       #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
       #"ADCXXFLAGS= -fPIC  -O3 -std=c++17 -I../build/admb/include"
       #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
       #"ADCXXFLAGS= #{ENV['ADCXXFLAGS']}"
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      #"CXXFLAGS= #{ENV['CXXFLAGS']}"
 
       # g++-contribs: g++-core
-      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      #"CXXFLAGS= #{ENV['CXXFLAGS']}"
       # g++-shared:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "CXXFLAGS= #{ENV['CXXFLAGS']}"
-      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      #"SHARED=-shared", "shared", "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      #"SHARED=-shared", "shared", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
       # DEBUG build
       #ENV["ADCXXFLAGS"] = \
       #"-g -D_USE_MATH_DEFINES -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter -DDEBUG"
-      ENV["CXXFLAGS"]="-g -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter -DDEBUG"
+      #ENV["CXXFLAGS"]="-g -fPIC  -O3 -std=c++17 -I../build/admb/include -Wall -Wextra -Wconversion -Wno-unused-parameter -DDEBUG"
       # g++-core:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
-      "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "all", \
+      #"DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # g++-contribs: g++-core
-      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "all", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      #"all", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # g++-shared:
-      system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-       "SHARED=-shared", "shared", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
-      system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
-      "SHARED=-shared", "shared", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      # "SHARED=-shared", "shared", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
+      #system "make", "--directory=contrib", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", \
+      #"SHARED=-shared", "shared", "DEBUG=yes", "CXXFLAGS= #{ENV['CXXFLAGS']}"
       # $(MAKE) --directory=src CC=gcc CXX=g++ copy
+      #system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
+      ######
+      system "make", "#{ENV.cxx}-contribs"
+      system "make", "#{ENV.cxx}-shared"
       system "make", "--directory=src", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}", "copy"
+      ######## clang++-debug:
+      ######## clang++-all DEBUG=yes
+      system "make", "#{ENV.cxx}-debug"
+      system "find", "build/admb", "-type", "d", "-exec", "chmod", "-v", "755", "{}", "\;"
+      system "find", "build/admb", "-type", "f", "-exec", "chmod", "-v", "644", "{}", "\;"
     end
 
     # install
